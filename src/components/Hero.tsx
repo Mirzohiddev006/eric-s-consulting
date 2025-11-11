@@ -25,14 +25,12 @@ const Hero: React.FC = () => {
           <img
             src="../../public/consultant.png" // public/hero-image.jpg
             alt="Consulting"
-            className="absolute w-[1500px] h-[700px] object-cover clip-path-custom"
+            className="absolute w-[1500px] h-[700px] object-cover top-28"
           />
-          <style>
-
-          </style>
+          <style></style>
           {/* 5. Rasm va gradient ustidagi matn kontenti */}
-          <div className="relative z-10 p-12 mt-4 md:p-12 lg:py-24 lg:px-16 lg:w-2/3">
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+          <div className="relative z-10 p-8 md:p-12 lg:py-24 lg:px-16 lg:w-2/3">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4 whitespace-nowrap">
               The Best Consulting <br /> Begins Here
             </h1>
             <p className="text-xl text-gray-300 mb-8">
@@ -42,19 +40,19 @@ const Hero: React.FC = () => {
             {/* Statistika (Yangi dizayndagi ranglar) */}
             <div className="relative grid grid-cols-2 sm:grid-cols-4 gap-24 mb-20">
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">15 +</div>
+                <div className="text-3xl font-bold text-white">15</div>
                 <div className="text-white">Potential Projects</div>
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">159 +</div>
+                <div className="text-3xl font-bold text-white">159</div>
                 <div className="text-white">New Projects</div>
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">144 +</div>
+                <div className="text-3xl font-bold text-white">144</div>
                 <div className="text-white">Successful Projects</div>
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">120 +</div>
+                <div className="text-3xl font-bold text-white">120</div>
                 <div className="text-white">Happy Clients</div>
               </div>
             </div>
