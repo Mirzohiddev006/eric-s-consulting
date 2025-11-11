@@ -50,7 +50,7 @@ const Features: React.FC = () => {
           {featureList.map((feature) => (
             <div
               key={feature.title}
-              className="flex flex-col md:flex-row items-start p-8 bg-white rounded-2xl shadow-lg"
+              className="flex flex-col md:flex-row items-start p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-shadow"
             >
               <div className="flex-shrink-0 p-5 bg-blue-50 rounded-xl">
                 {feature.icon}

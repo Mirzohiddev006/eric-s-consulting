@@ -4,17 +4,17 @@ const teamMembers = [
   {
     name: "Dilfuza Abdullaeva",
     role: "Expert in Digital marketing, business consultant, visa support, and immigration consultant",
-    image: "/team/dilfuza.jpg",
+    image: "../../public/team/dilfuza.png", // ✅ To'g'ri
   },
   {
     name: "Ulugbek Shukurov",
     role: "Expert in Criminal law, immigration consultant, Lawyer",
-    image: "/team/ulugbek.jpg",
+    image: "../../public/team/Ulug'bek.png", // ✅ To'g'ri
   },
   {
     name: "Khushnazar Juraev",
     role: "Lawyer, Expert, Immigration Consultant",
-    image: "/team/khushnazar.jpg",
+    image: "../../public/team/Khushnazar.png", // ⚠️ Katta harf bilan yozing
   },
 ];
 
@@ -22,7 +22,7 @@ const Team: React.FC = () => {
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-6">
-        <div className="max-w-3xl mb-16">
+        <div className="max-w-3xl mb-16 text-center mx-auto">
           <h2 className="text-4xl font-bold text-brand-dark-blue mb-6">
             Meet Our Highly Experienced Team
           </h2>
@@ -36,12 +36,12 @@ const Team: React.FC = () => {
           {teamMembers.map((member) => (
             <div
               key={member.name}
-              className="bg-white rounded-lg shadow-xl overflow-hidden"
+              className="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-shadow"
             >
               <img
                 src={member.image}
                 alt={member.name}
-                className="w-full h-80 object-cover"
+                className="w-full h-[500px] object-cover"
               />
               <div className="p-6 text-center">
                 <h3 className="text-2xl font-bold text-brand-dark-blue mb-2">

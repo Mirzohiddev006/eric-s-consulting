@@ -14,7 +14,7 @@ const Hero: React.FC = () => {
     // Asosiy to'q ko'k fonli bo'lim
     <section className="bg-[#103162] text-white py-16 md:py-24">
       {/* 1. Kontent uchun konteyner */}
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-8">
         {/* 2. Figmadagi asosiy karta. 
              - max-w-6xl (taxminan 1152px)
              - ml-[-19px] (siz aytgan X -19px)
@@ -25,9 +25,11 @@ const Hero: React.FC = () => {
           <img
             src="../../public/consultant.png" // public/hero-image.jpg
             alt="Consulting"
-            className="absolute w-[1500px] h-[700px] object-cover clip-path-custom-['M 10% 5% L 80% 5% L 80% 85% Q 50% 90%, 20% 85% Q 10% 87%, 10% 5% Z']"
+            className="absolute w-[1500px] h-[700px] object-cover clip-path-custom"
           />
+          <style>
 
+          </style>
           {/* 5. Rasm va gradient ustidagi matn kontenti */}
           <div className="relative z-10 p-12 mt-4 md:p-12 lg:py-24 lg:px-16 lg:w-2/3">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
@@ -38,21 +40,21 @@ const Hero: React.FC = () => {
             </p>
 
             {/* Statistika (Yangi dizayndagi ranglar) */}
-            <div className="relative grid grid-cols-2 sm:grid-cols-4 gap-12 mb-20">
+            <div className="relative grid grid-cols-2 sm:grid-cols-4 gap-24 mb-20">
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">15+</div>
+                <div className="text-3xl font-bold text-white">15 +</div>
                 <div className="text-white">Potential Projects</div>
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">159+</div>
+                <div className="text-3xl font-bold text-white">159 +</div>
                 <div className="text-white">New Projects</div>
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">144+</div>
+                <div className="text-3xl font-bold text-white">144 +</div>
                 <div className="text-white">Successful Projects</div>
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">120+</div>
+                <div className="text-3xl font-bold text-white">120 +</div>
                 <div className="text-white">Happy Clients</div>
               </div>
             </div>

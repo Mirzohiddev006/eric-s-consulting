@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
         </p>
         <p className="text-gray-400 text-sm">
           Designed By{" "}
-          <a href="https://cognilabs.org" className="hover:text-white">
+          <a href="https://www.cognilabs.org/en" className="hover:text-white">
             Cognilabs Company
           </a>
         </p>
