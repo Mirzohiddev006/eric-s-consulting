@@ -1,12 +1,16 @@
-// src/components/ChatWidget.tsx
-
 import React, { useState, useEffect, useRef } from "react";
-// Ikonkalarni import qilish (FaRobot - yangi avatar uchun)
-import { FaComments, FaPaperPlane, FaTimes, FaRobot } from "react-icons/fa";
+import {
+  FaComments,
+  FaPaperPlane,
+  FaTimes,
+  FaRobot,
+  FaCheckDouble,
+} from "react-icons/fa";
 
 interface Message {
   sender: "user" | "bot";
   text: string;
+  timestamp?: string;
 }
 
 interface ChatWidgetProps {
@@ -18,172 +22,227 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ isAuthenticated }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Xabarlar o'zgarganda pastga skroll qilish
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
   useEffect(scrollToBottom, [messages, isLoading]);
 
-  // Oyna ochilganda chat tarixini yuklash
   useEffect(() => {
-    if (isOpen) {
-      const fetchChatHistory = async () => {
-        setIsLoading(true);
-        try {
-          // Bu URL sizning Django'dagi 'accounts/urls.py' faylingizdan olingan
-          const response = await fetch("/chat-bot");
-          if (!response.ok) return;
-          const data = await response.json();
-          // Salomlashish xabari (Figmadagidek)
-          const welcomeMessage = {
-            sender: "bot",
-            text: "Salom, sizga qanday yordam bera olaman?",
-          };
-          setMessages([welcomeMessage, ...(data.chat_history || [])]);
-        } catch (error) {
-          console.error("Chat tarixini yuklashda xatolik:", error);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      fetchChatHistory();
+    if (isOpen && messages.length === 0) {
+      setTimeout(() => {
+        const welcomeMessage: Message = {
+          sender: "bot",
+          text: "Salom! 👋 Sizga qanday yordam bera olaman?",
+          timestamp: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+        };
+        setMessages([welcomeMessage]);
+      }, 500);
     }
   }, [isOpen]);
 
-  // Xabarni yuborish funksiyasi
-  const handleSend = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSend = (e?: React.MouseEvent | React.KeyboardEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
+
     if (!input.trim() || isLoading) return;
 
     if (!isAuthenticated) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "bot",
-          text: "Chatbotdan foydalanish uchun tizimga kiring yoki ro'yxatdan o'ting.",
-        },
-      ]);
+      const authMessage: Message = {
+        sender: "bot",
+        text: "Chatbotdan foydalanish uchun tizimga kiring yoki ro'yxatdan o'ting.",
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      };
+      setMessages((prev) => [...prev, authMessage]);
       setInput("");
       return;
     }
 
-    const userMessage: Message = { sender: "user", text: input };
+    const userMessage: Message = {
+      sender: "user",
+      text: input,
+      timestamp: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
-    setIsLoading(true); // "Yozmoqda..." indikatorini yoqish
+    setIsTyping(true);
+    setIsLoading(true);
 
-    const formData = new FormData();
-    formData.append("message", input);
-    // CSRF token (agar kerak bo'lsa)
+    // Simulate API call
+    setTimeout(() => {
+      const botResponse: Message = {
+        sender: "bot",
+        text: "Bu demo javob. Backend bilan bog'lanish kerak.",
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      };
+      setMessages((prev) => [...prev, botResponse]);
+      setIsTyping(false);
+      setIsLoading(false);
+    }, 1500);
+  };
 
-    try {
-      const response = await fetch("/chat-bot", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP xatolik! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      data.messages.forEach((msg: { text: string; sender: "bot" }) => {
-        setMessages((prev) => [...prev, { sender: "bot", text: msg.text }]);
-      });
-    } catch (error) {
-      console.error("Xabar yuborishda xatolik:", error);
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "bot",
-          text: "Kechirasiz, xabar yuborishda xatolik yuz berdi.",
-        },
-      ]);
-    } finally {
-      setIsLoading(false); // "Yozmoqda..." indikatorini o'chirish
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      handleSend(e);
     }
   };
 
   return (
     <>
-      {/* Chatni ochish/yopish tugmasi */}
+      {/* Floating Action Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-8 left-8 bg-brand-blue text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg z-50 transition-all duration-300 ease-in-out hover:scale-110"
+        className="fixed bottom-8 left-8 bg-gradient-to-br from-blue-600 to-cyan-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl z-50 transition-all duration-300 ease-out hover:scale-110 hover:shadow-blue-500/50 hover:rotate-12 group"
       >
-        {isOpen ? <FaTimes size={24} /> : <FaComments size={24} />}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-300"></div>
+        <div
+          className={`transform transition-all duration-300 ${
+            isOpen ? "rotate-90 scale-75" : "rotate-0 scale-100"
+          }`}
+        >
+          {isOpen ? <FaTimes size={24} /> : <FaComments size={24} />}
+        </div>
+
+        {/* Pulse animation when closed */}
+        {!isOpen && (
+          <span className="absolute inset-0 rounded-full bg-blue-600 animate-ping opacity-20"></span>
+        )}
       </button>
 
-      {/* Chat Oynasi (Figmadagidek to'q fon bilan) */}
+      {/* Chat Window */}
       <div
-        className={`fixed bottom-[calc(4rem+1.5rem)] left-8 w-96 h-[600px] shadow-2xl rounded-2xl z-50 flex flex-col transition-all duration-300 ease-in-out bg-brand-dark-blue
+        className={`fixed bottom-28 left-8 w-96 h-[600px] shadow-2xl rounded-3xl z-50 flex flex-col overflow-hidden transition-all duration-500 ease-out
           ${
             isOpen
               ? "opacity-100 transform scale-100 translate-y-0 pointer-events-auto"
-              : "opacity-0 transform scale-95 -translate-y-4 pointer-events-none"
+              : "opacity-0 transform scale-90 translate-y-8 pointer-events-none"
           }`}
+        style={{
+          background:
+            "linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%)",
+        }}
       >
-        {/* Oyna Bosh qismi (Header) - Figmadagidek "Last seen" qo'shildi */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <div className="flex items-center space-x-3">
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
-              <FaRobot className="text-white" />
+        {/* Decorative blur circles */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl"></div>
+
+        {/* Header */}
+        <div className="relative flex items-center justify-between p-5 border-b border-white/10 backdrop-blur-sm">
+          <div className="flex items-center space-x-3 z-10">
+            <div className="relative flex-shrink-0">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg transform transition-transform duration-300 hover:scale-110">
+                <FaRobot className="text-white text-xl" />
+              </div>
+              <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-blue-900 animate-pulse"></span>
             </div>
             <div>
-              <h3 className="font-bold text-lg text-white">Eric's Assistant</h3>
-              <p className="text-xs text-gray-400">Last seen recently</p>
+              <h3 className="font-bold text-lg text-white flex items-center gap-2">
+                Eric's Assistant
+                <FaCheckDouble className="text-cyan-400 text-xs" />
+              </h3>
+              <p className="text-xs text-cyan-200 font-medium">
+                Online • Responds instantly
+              </p>
             </div>
           </div>
           <button
             onClick={() => setIsOpen(false)}
-            className="text-gray-400 hover:text-white"
+            className="z-10 text-white/70 hover:text-white hover:bg-white/10 rounded-full p-2 transition-all duration-300 hover:rotate-90"
           >
             <FaTimes size={20} />
           </button>
         </div>
 
-        {/* Xabarlar maydoni */}
-        <div className="flex-1 p-4 overflow-y-auto space-y-4">
+        {/* Messages Area */}
+        <div className="flex-1 p-5 overflow-y-auto space-y-4 relative z-10">
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`flex items-end space-x-2 ${
+              className={`flex items-end space-x-2 animate-[slideIn_0.4s_ease-out] ${
                 msg.sender === "user" ? "justify-end" : "justify-start"
               }`}
+              style={{
+                animationDelay: `${index * 0.1}s`,
+              }}
             >
-              {/* Bot avatarkasi (Figmadagidek) */}
               {msg.sender === "bot" && (
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center">
-                  <FaRobot className="text-white" />
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform">
+                  <FaRobot className="text-white text-sm" />
                 </div>
               )}
 
-              {/* Xabar matni (bubble) */}
-              <div
-                className={`p-3 rounded-2xl max-w-[80%] break-words shadow-sm
-                  ${
-                    msg.sender === "user"
-                      ? "bg-brand-blue text-white rounded-br-none"
-                      : "bg-blue-200 text-gray-900 rounded-bl-none" // Figmadagidek och ko'k
-                  }`}
-              >
-                {msg.text}
+              <div className="flex flex-col max-w-[75%]">
+                <div
+                  className={`group relative p-4 rounded-2xl shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
+                    ${
+                      msg.sender === "user"
+                        ? "bg-gradient-to-br from-cyan-500 to-blue-600 text-white rounded-br-none"
+                        : "bg-white/95 backdrop-blur-sm text-gray-800 rounded-bl-none"
+                    }`}
+                >
+                  <p className="text-sm leading-relaxed">{msg.text}</p>
+
+                  {/* Decorative gradient border */}
+                  <div
+                    className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                      msg.sender === "user"
+                        ? "rounded-br-none"
+                        : "rounded-bl-none"
+                    }`}
+                    style={{
+                      background:
+                        msg.sender === "user"
+                          ? "linear-gradient(135deg, rgba(6,182,212,0.5), rgba(59,130,246,0.5))"
+                          : "linear-gradient(135deg, rgba(96,165,250,0.3), rgba(34,211,238,0.3))",
+                      padding: "2px",
+                      WebkitMask:
+                        "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                      WebkitMaskComposite: "xor",
+                      maskComposite: "exclude",
+                    }}
+                  ></div>
+                </div>
+
+                {msg.timestamp && (
+                  <span
+                    className={`text-xs mt-1 px-2 ${
+                      msg.sender === "user"
+                        ? "text-cyan-200 text-right"
+                        : "text-white/60 text-left"
+                    }`}
+                  >
+                    {msg.timestamp}
+                  </span>
+                )}
               </div>
             </div>
           ))}
 
-          {/* "Yozmoqda..." indikatori (avatarka bilan) */}
-          {isLoading && (
-            <div className="flex items-end space-x-2 justify-start">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center">
-                <FaRobot className="text-white" />
+          {isTyping && (
+            <div className="flex items-end space-x-2 justify-start animate-[slideIn_0.4s_ease-out]">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg">
+                <FaRobot className="text-white text-sm" />
               </div>
-              <div className="bg-blue-200 text-gray-900 p-3 rounded-2xl rounded-bl-none shadow-sm flex items-center space-x-2">
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
+              <div className="bg-white/95 backdrop-blur-sm p-4 rounded-2xl rounded-bl-none shadow-lg flex items-center space-x-2">
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
               </div>
             </div>
           )}
@@ -191,29 +250,62 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ isAuthenticated }) => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Xabar kiritish maydoni (Figmadagidek "suzib yuruvchi") */}
-        <form onSubmit={handleSend} className="p-4">
-          <div className="relative">
+        {/* Input Area */}
+        <div className="relative p-5 border-t border-white/10 backdrop-blur-sm z-10">
+          <div className="relative group">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask me anything..."
-              className="w-full bg-white text-gray-900 rounded-full px-6 py-4 pr-16 border-none
-                         focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              onKeyPress={handleKeyPress}
+              placeholder="Type your message..."
+              className="w-full bg-white/95 backdrop-blur-sm text-gray-900 rounded-full px-6 py-4 pr-16 border-2 border-transparent
+                         focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-500/20 transition-all duration-300 placeholder:text-gray-400"
             />
             <button
-              type="submit"
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center
-                         text-gray-500 hover:text-brand-blue hover:bg-gray-100 transition-colors
-                         disabled:opacity-50"
+              onClick={handleSend}
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center
+                         bg-gradient-to-br from-cyan-500 to-blue-600 text-white hover:scale-110 hover:rotate-12 
+                         transition-all duration-300 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:rotate-0 shadow-lg"
               disabled={isLoading || !input.trim()}
             >
-              <FaPaperPlane size={18} />
+              <FaPaperPlane size={16} className="transform translate-x-[1px]" />
             </button>
+
+            {/* Glow effect on focus */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-focus-within:opacity-20 blur-xl transition-opacity duration-300 -z-10"></div>
           </div>
-        </form>
+        </div>
       </div>
+
+      <style>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Custom scrollbar */
+        .overflow-y-auto::-webkit-scrollbar {
+          width: 6px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+          background: rgba(6, 182, 212, 0.5);
+          border-radius: 10px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+          background: rgba(6, 182, 212, 0.7);
+        }
+      `}</style>
     </>
   );
 };
