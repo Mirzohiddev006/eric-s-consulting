@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-brand-dark-blue text-gray-300 py-16">
+    <footer className="bg-[#103162] text-gray-300 py-16">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Column 1: Quick Links (from Figma & base.html) */}
         <div>
