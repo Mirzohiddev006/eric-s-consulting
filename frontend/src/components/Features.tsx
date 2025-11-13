@@ -7,6 +7,7 @@ import {
   FaShieldAlt,
   FaChartLine,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const featureList = [
   {
@@ -153,8 +154,8 @@ const Features: React.FC = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-12 md:mt-16 animate-[fadeInUp_1s_ease-out]">
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             className="inline-flex items-center justify-center px-8 py-4 text-base md:text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 hover:scale-105"
           >
             Get Started Today
@@ -168,10 +169,10 @@ const Features: React.FC = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M13 7l5 5m0 0l-5 5m5-5H6"
-              />
+                d="M9 5l7 7-7 7"
+              ></path>
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
 

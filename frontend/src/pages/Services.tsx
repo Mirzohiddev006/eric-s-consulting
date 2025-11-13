@@ -68,7 +68,7 @@ const Services: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Yuklanmoqda...</p>
+          <p className="text-gray-600">Loading...</p>
         </div>
       </div>
     );
@@ -80,11 +80,10 @@ const Services: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 animate-[fadeInUp_0.6s_ease-out]">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark-blue mb-4 md:mb-6">
-            Bizning Xizmatlarimiz
+            Our Services
           </h1>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
-            Biz sizning ehtiyojlaringizga moslashtirilgan keng qamrovli yuridik
-            va konsalting xizmatlarini taklif etamiz.
+            We offer comprehensive legal and consulting services tailored to your needs.
           </p>
         </div>
 
@@ -123,7 +122,7 @@ const Services: React.FC = () => {
                     <span className="w-8 h-8 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center mr-3">
                       <FiUser className="text-white" />
                     </span>
-                    Shu soha bo'yicha mutaxassislar
+                    Our Expert Team
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     {service.members.map((member, memberIndex) => (
@@ -165,13 +164,13 @@ const Services: React.FC = () => {
         {/* CTA Section */}
         <div className="text-center mt-12 md:mt-16 animate-[fadeInUp_1s_ease-out]">
           <p className="text-gray-600 mb-6 text-base sm:text-lg">
-            Bizning xizmatlar haqida batafsil ma'lumot olmoqchimisiz?
+            Interested in our services? Reach out to us for a consultation!
           </p>
           <a
             href="/contact"
             className="inline-flex items-center justify-center px-8 py-4 text-base md:text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 hover:scale-105"
           >
-            Biz bilan bog'laning
+            Contact Us
             <svg
               className="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform"
               fill="none"

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   FaUser,
   FaEnvelope,
@@ -57,11 +58,11 @@ const Register: React.FC = () => {
       if (data.success) {
         window.location.href = "/";
       } else {
-        setError(data.error || "Ro'yxatdan o'tishda xatolik");
+        setError(data.error || "Error during registration.");
         setIsLoading(false);
       }
     } catch (err) {
-      setError("Server bilan bog'lanishda xatolik yuz berdi.");
+      setError("Error while connecting to the server.");
       setIsLoading(false);
     }
   };
@@ -76,9 +77,9 @@ const Register: React.FC = () => {
 
   const getStrengthText = () => {
     if (passwordStrength === 0) return "";
-    if (passwordStrength === 1) return "Zaif";
-    if (passwordStrength === 2) return "O'rtacha";
-    if (passwordStrength === 3) return "Yaxshi";
+    if (passwordStrength === 1) return "Weak";
+    if (passwordStrength === 2) return "Normal";
+    if (passwordStrength === 3) return "Good";
     return "Kuchli";
   };
 
@@ -100,10 +101,10 @@ const Register: React.FC = () => {
                 <FaUserPlus className="text-white text-3xl" />
               </div>
               <h2 className="text-3xl font-bold text-white mb-2">
-                Yangi hisob yarating
+                Create Your Account
               </h2>
               <p className="text-cyan-100 text-sm">
-                Platformamizga qo'shiling va ko'plab imkoniyatlardan foydalaning
+                Join our platform and take advantage of many opportunities
               </p>
             </div>
           </div>
@@ -123,7 +124,7 @@ const Register: React.FC = () => {
                 {/* First Name */}
                 <div className="group">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Ism *
+                    First Name *
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -135,7 +136,7 @@ const Register: React.FC = () => {
                       value={formData.first_name}
                       onChange={handleChange}
                       className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all duration-300 bg-gray-50 focus:bg-white"
-                      placeholder="Ismingiz"
+                      placeholder="Your First Name"
                       required
                     />
                   </div>
@@ -144,7 +145,7 @@ const Register: React.FC = () => {
                 {/* Last Name */}
                 <div className="group">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Familiya
+                    Last Name
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -156,7 +157,7 @@ const Register: React.FC = () => {
                       value={formData.last_name}
                       onChange={handleChange}
                       className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all duration-300 bg-gray-50 focus:bg-white"
-                      placeholder="Familiyangiz"
+                      placeholder="Your Last Name"
                     />
                   </div>
                 </div>
@@ -165,7 +166,7 @@ const Register: React.FC = () => {
               {/* Email Input */}
               <div className="group">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Email manzil *
+                  Email Address *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -186,7 +187,7 @@ const Register: React.FC = () => {
               {/* Phone Input */}
               <div className="group">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Telefon raqam
+                  Phone Number
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -198,7 +199,7 @@ const Register: React.FC = () => {
                     value={formData.phone_number}
                     onChange={handleChange}
                     className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 transition-all duration-300 bg-gray-50 focus:bg-white"
-                    placeholder="+998 90 123 45 67"
+                    placeholder="+1 234 567 8900"
                   />
                 </div>
               </div>
@@ -206,7 +207,7 @@ const Register: React.FC = () => {
               {/* Password Input with Strength Indicator */}
               <div className="group">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Parol *
+                  Password *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -218,7 +219,7 @@ const Register: React.FC = () => {
                     value={formData.password}
                     onChange={handleChange}
                     className="w-full pl-12 pr-12 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all duration-300 bg-gray-50 focus:bg-white"
-                    placeholder="Kamida 8 ta belgi"
+                    placeholder="At least 8 characters"
                     required
                   />
                   <button
@@ -266,21 +267,21 @@ const Register: React.FC = () => {
               <div className="flex items-start space-x-3 p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-100">
                 <FaCheckCircle className="text-purple-500 mt-1 flex-shrink-0" />
                 <p className="text-sm text-gray-600">
-                  Ro'yxatdan o'tish orqali siz bizning{" "}
-                  <a
-                    href="/terms"
+                  By registering, you agree to our{" "}
+                  <Link
+                    to="/terms"
                     className="text-purple-600 hover:underline font-medium"
                   >
-                    Foydalanish shartlari
-                  </a>{" "}
-                  va{" "}
-                  <a
-                    href="/privacy"
+                    Terms of Use
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    to="/privacy"
                     className="text-purple-600 hover:underline font-medium"
                   >
-                    Maxfiylik siyosati
-                  </a>
-                  ga rozilik bildirasiz
+                    Privacy Policy
+                  </Link>
+                  .
                 </p>
               </div>
             </div>
@@ -314,12 +315,12 @@ const Register: React.FC = () => {
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       ></path>
                     </svg>
-                    <span>Yuklanmoqda...</span>
+                    <span>Loading...</span>
                   </>
                 ) : (
                   <>
                     <FaUserPlus />
-                    <span>Ro'yxatdan o'tish</span>
+                    <span>Register</span>
                     <FaArrowRight className="transform group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
@@ -332,20 +333,20 @@ const Register: React.FC = () => {
                 <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-gray-500">yoki</span>
+                <span className="px-4 bg-white text-gray-500">or</span>
               </div>
             </div>
 
             {/* Login Link */}
             <div className="text-center">
-              <p className="text-gray-600 mb-3">Allaqachon hisobingiz bormi?</p>
-              <a
-                href="/login"
+              <p className="text-gray-600 mb-3">Already have an account?</p>
+              <Link
+                to="/login"
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-purple-600 text-purple-600 font-semibold rounded-xl hover:bg-purple-50 transition-all duration-300 hover:scale-105"
               >
                 <FaSignInAlt className="transform group-hover:scale-110 transition-transform" />
-                <span>Tizimga kirish</span>
-              </a>
+                <span>Login</span>
+              </Link>
             </div>
           </div>
         </div>
@@ -354,7 +355,7 @@ const Register: React.FC = () => {
         <div className="mt-6 text-center text-gray-600 text-sm animate-[fadeIn_1s_ease-out] bg-white/50 backdrop-blur-sm rounded-xl p-4">
           <p className="flex items-center justify-center gap-2">
             <FaLock className="text-green-500" />
-            Ma'lumotlaringiz xavfsiz va shifrlangan holda saqlanadi
+            Your information is safe and securely encrypted
           </p>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   FaFacebookF,
   FaTwitter,
@@ -38,13 +39,13 @@ const Footer: React.FC = () => {
                 { label: "Support", href: "/contact" },
               ].map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="hover:text-white transition-all duration-300 hover:translate-x-2 inline-block group"
                   >
                     <span className="inline-block w-0 group-hover:w-2 h-0.5 bg-cyan-500 transition-all duration-300 mr-0 group-hover:mr-2"></span>
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -149,6 +150,8 @@ const Footer: React.FC = () => {
               ©{" "}
               <a
                 href="https://erixconsulting.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-white transition-colors"
               >
                 Eric's Consulting

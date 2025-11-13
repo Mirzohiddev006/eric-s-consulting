@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -131,8 +132,8 @@ const About: React.FC = () => {
                   : "opacity-0 translate-y-10"
               }`}
             >
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className="inline-flex items-center justify-center px-8 py-4 text-base md:text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 hover:scale-105"
               >
                 Learn More About Us
@@ -149,7 +150,7 @@ const About: React.FC = () => {
                     d="M13 7l5 5m0 0l-5 5m5-5H6"
                   />
                 </svg>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

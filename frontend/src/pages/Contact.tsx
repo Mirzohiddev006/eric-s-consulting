@@ -54,21 +54,21 @@ const Contact: React.FC = () => {
       title: "Email",
       content: "erkinbay@erixconsulting.com",
       href: "mailto:erkinbay@erixconsulting.com",
-      color: "from-purple-500 to-pink-500",
+      color: "from-blue-500 to-cyan-500",
     },
     {
       icon: FiPhone,
       title: "Phone",
       content: "+1 469 833 0078",
       href: "tel:+14698330078",
-      color: "from-orange-500 to-red-500",
+      color: "from-blue-500 to-cyan-500",
     },
     {
       icon: FiClock,
       title: "Working Hours",
       content: "Mon - Fri : 09 AM - 09 PM",
       href: "#",
-      color: "from-green-500 to-teal-500",
+      color: "from-blue-500 to-cyan-500",
     },
   ];
 

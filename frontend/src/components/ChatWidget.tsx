@@ -36,7 +36,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ isAuthenticated }) => {
       setTimeout(() => {
         const welcomeMessage: Message = {
           sender: "bot",
-          text: "Salom! 👋 Sizga qanday yordam bera olaman?",
+          text: "Hi! How can I assist you today?",
           timestamp: new Date().toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
@@ -57,7 +57,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ isAuthenticated }) => {
     if (!isAuthenticated) {
       const authMessage: Message = {
         sender: "bot",
-        text: "Chatbotdan foydalanish uchun tizimga kiring yoki ro'yxatdan o'ting.",
+        text: "Please login or register to use the chatbot.",
         timestamp: new Date().toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",

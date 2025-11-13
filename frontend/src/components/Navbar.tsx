@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 interface User {
   isAuthenticated: boolean;
@@ -20,12 +21,12 @@ const DropdownLink: React.FC<{ href: string; children: React.ReactNode }> = ({
   href,
   children,
 }) => (
-  <a
-    href={href}
+  <Link
+    to={href}
     className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-brand-blue transition-colors"
   >
     {children}
-  </a>
+  </Link>
 );
 
 const Navbar: React.FC<Partial<AuthProps>> = ({
@@ -53,30 +54,30 @@ const Navbar: React.FC<Partial<AuthProps>> = ({
 
   const renderNavLinks = (mobile: boolean = false) => (
     <>
-      <a
-        href="/"
+      <Link
+        to="/"
         className={`${getLinkClass("home")} ${mobile ? "block py-2" : ""}`}
         onClick={() => mobile && setMobileMenuOpen(false)}
       >
         Main
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-secondary group-hover:w-full transition-all duration-300"></span>
-      </a>
-      <a
-        href="/contact"
+      </Link>
+      <Link
+        to="/contact"
         className={`${getLinkClass("contact")} ${mobile ? "block py-2" : ""}`}
         onClick={() => mobile && setMobileMenuOpen(false)}
       >
         Contact Us
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-secondary group-hover:w-full transition-all duration-300"></span>
-      </a>
-      <a
-        href="/service"
+      </Link>
+      <Link
+        to="/service"
         className={`${getLinkClass("services")} ${mobile ? "block py-2" : ""}`}
         onClick={() => mobile && setMobileMenuOpen(false)}
       >
         Our Services
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-secondary group-hover:w-full transition-all duration-300"></span>
-      </a>
+      </Link>
     </>
   );
 
@@ -89,8 +90,8 @@ const Navbar: React.FC<Partial<AuthProps>> = ({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4 md:py-6">
           {/* Logo */}
-          <a
-            href="/"
+          <Link
+            to="/"
             className="transform hover:scale-105 transition-transform duration-300"
           >
             <img
@@ -98,7 +99,7 @@ const Navbar: React.FC<Partial<AuthProps>> = ({
               alt="Eric's Consulting"
               className="h-8 sm:h-10 md:h-12"
             />
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">

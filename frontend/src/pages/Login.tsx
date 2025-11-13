@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   FaEnvelope,
   FaLock,
@@ -34,11 +35,11 @@ const Login: React.FC = () => {
       if (data.success) {
         window.location.href = "/";
       } else {
-        setError(data.error || "Login yoki parol noto'g'ri");
+        setError(data.error || "Login or password is incorrect.");
         setIsLoading(false);
       }
     } catch (err) {
-      setError("Server bilan bog'lanishda xatolik yuz berdi.");
+      setError("Error while connecting to the server.");
       setIsLoading(false);
     }
   };
@@ -61,10 +62,10 @@ const Login: React.FC = () => {
                 <FaLock className="text-white text-3xl" />
               </div>
               <h2 className="text-3xl font-bold text-white mb-2">
-                Xush kelibsiz!
+                Welcome Back!
               </h2>
               <p className="text-cyan-100 text-sm">
-                Hisobingizga kirish uchun ma'lumotlaringizni kiriting
+                Enter your details to access your account
               </p>
             </div>
           </div>
@@ -85,7 +86,7 @@ const Login: React.FC = () => {
                   htmlFor="email"
                   className="block text-sm font-semibold text-gray-700 mb-2"
                 >
-                  Email manzil
+                  Email Address
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -110,7 +111,7 @@ const Login: React.FC = () => {
                   htmlFor="password"
                   className="block text-sm font-semibold text-gray-700 mb-2"
                 >
-                  Parol
+                  Password
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -138,12 +139,12 @@ const Login: React.FC = () => {
 
               {/* Forgot Password Link */}
               <div className="flex justify-end">
-                <a
-                  href="/forgot-password"
+                <Link
+                  to="/forgot-password"
                   className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline transition-colors"
                 >
-                  Parolni unutdingizmi?
-                </a>
+                  Forgot Password?
+                </Link>
               </div>
             </div>
 
@@ -176,11 +177,11 @@ const Login: React.FC = () => {
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       ></path>
                     </svg>
-                    <span>Yuklanmoqda...</span>
+                    <span>Loading...</span>
                   </>
                 ) : (
                   <>
-                    <span>Kirish</span>
+                    <span>Login</span>
                     <FaArrowRight className="transform group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
@@ -193,41 +194,41 @@ const Login: React.FC = () => {
                 <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-gray-500">yoki</span>
+                <span className="px-4 bg-white text-gray-500">or</span>
               </div>
             </div>
 
             {/* Register Link */}
             <div className="text-center">
-              <p className="text-gray-600 mb-3">Hisobingiz yo'qmi?</p>
-              <a
-                href="/register"
+              <p className="text-gray-600 mb-3">Don't have an account?</p>
+              <Link
+                to="/register"
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all duration-300 hover:scale-105"
               >
                 <FaUserPlus className="transform group-hover:scale-110 transition-transform" />
-                <span>Ro'yxatdan o'tish</span>
-              </a>
+                <span>Register</span>
+              </Link>
             </div>
           </div>
         </div>
 
         {/* Footer text */}
         <p className="text-center text-gray-600 text-sm mt-6 animate-[fadeIn_1s_ease-out]">
-          Davom etish orqali siz bizning{" "}
-          <a
-            href="/terms"
+          By continuing, you agree to our{" "}
+          <Link
+            to="/terms"
             className="text-blue-600 hover:underline font-medium"
           >
-            Shartlar
-          </a>{" "}
-          va{" "}
-          <a
-            href="/privacy"
+            Terms
+          </Link>{" "}
+          and{" "}
+          <Link
+            to="/privacy"
             className="text-blue-600 hover:underline font-medium"
           >
-            Maxfiylik siyosati
-          </a>
-          ga rozilik bildirasiz
+            Privacy Policy
+          </Link>
+          .
         </p>
       </div>
 
