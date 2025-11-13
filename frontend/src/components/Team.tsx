@@ -4,17 +4,17 @@ const teamMembers = [
   {
     name: "Dilfuza Abdullaeva",
     role: "Expert in Digital marketing, business consultant, visa support, and immigration consultant",
-    image: "../../public/team/dilfuza.png", // ✅ To'g'ri
+    image: "/team/dilfuza.png", // ✅ TO'G'RI YO'L
   },
   {
     name: "Ulugbek Shukurov",
     role: "Expert in Criminal law, immigration consultant, Lawyer",
-    image: "../../public/team/Ulug'bek.png", // ✅ To'g'ri
+    image: "/team/Ulug'bek.png", // ✅ TO'G'RI YO'L
   },
   {
     name: "Khushnazar Juraev",
     role: "Lawyer, Expert, Immigration Consultant",
-    image: "../../public/team/khushnazar.png", // ⚠️ Katta harf bilan yozing
+    image: "/team/Khushnazar.png", // ✅ TO'G'RI YO'L
   },
 ];
 
