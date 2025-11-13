@@ -1,5 +1,3 @@
-// src/components/Hero.tsx
-
 import React from "react";
 import {
   FaFacebookF,
@@ -9,105 +7,137 @@ import {
 } from "react-icons/fa";
 import { FiPhone, FiMail, FiClock } from "react-icons/fi";
 
-const Hero: React.FC = () => {
+const Hero = () => {
   return (
-    // Asosiy to'q ko'k fonli bo'lim
-    <section className="bg-[#103162] text-white py-16 md:py-24">
-      {/* 1. Kontent uchun konteyner */}
-      <div className="container mx-auto px-8">
-        {/* 2. Figmadagi asosiy karta. 
-             - max-w-6xl (taxminan 1152px)
-             - ml-[-19px] (siz aytgan X -19px)
-             - relative, chunki ichidagi elementlar absolute bo'ladi
-        */}
-        <div className="max-w-2xl mx-auto rounded-3xl shadow-2xl overflow-hidden ml-[-19px]">
-          {/* 3. Orqa fon rasmi (carousel-1.jpg) */}
-          <img
-            src="consultant.png" // public/hero-image.jpg
-            alt="Consulting"
-            className="absolute w-[1500px] h-[700px] object-cover top-28"
-          />
-          <style></style>
-          {/* 5. Rasm va gradient ustidagi matn kontenti */}
-          <div className="relative z-10 p-8 md:p-12 lg:py-24 lg:px-16 lg:w-2/3">
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4 whitespace-nowrap">
-              The Best Consulting <br /> Begins Here
+    <section className="relative bg-[#103162] text-white overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="consultant.png"
+          alt="Consulting Background"
+          className="w-full h-full object-cover"
+        />
+        {/* Gradient Overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#103162]/95 via-[#103162]/80 to-transparent"></div>
+      </div>
+
+      {/* Main Hero Container */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-32">
+        {/* Hero Content */}
+        <div className="relative z-10">
+          <div className="max-w-xl">
+            {/* Main Heading */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+              The Best Consulting
+              <br />
+              Begins Here
             </h1>
-            <p className="text-xl text-gray-300 mb-8">
+
+            {/* Subheading */}
+            <p className="text-lg sm:text-xl text-gray-200 mb-8 md:mb-12">
               For Individuals And Organisations
             </p>
 
-            {/* Statistika (Yangi dizayndagi ranglar) */}
-            <div className="relative grid grid-cols-2 sm:grid-cols-4 gap-24 mb-20">
+            {/* Statistics Grid */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-12 mb-8 md:mb-12">
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">15</div>
-                <div className="text-white">Potential Projects</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
+                  15
+                </div>
+                <div className="text-sm sm:text-base text-gray-200">
+                  Potential Projects
+                </div>
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">159</div>
-                <div className="text-white">New Projects</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
+                  159
+                </div>
+                <div className="text-sm sm:text-base text-gray-200">
+                  New Projects
+                </div>
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">144</div>
-                <div className="text-white">Successful Projects</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
+                  144
+                </div>
+                <div className="text-sm sm:text-base text-gray-200">
+                  Successful Projects
+                </div>
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-white">120</div>
-                <div className="text-white">Happy Clients</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
+                  120
+                </div>
+                <div className="text-sm sm:text-base text-gray-200">
+                  Happy Clients
+                </div>
               </div>
             </div>
 
-            {/* Ijtimoiy tarmoqlar (Yangi dizayn - to'qroq fon) */}
-            <div className="flex space-x-2">
+            {/* Social Media Links */}
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               <a
-                href="https"
-                className="py-2 px-4 bg-gray-700/50 rounded-lg hover:bg-brand-blue transition-colors"
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 sm:p-4 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-[#1877f2] transition-all duration-300 transform hover:scale-110"
+                aria-label="Facebook"
               >
-                <FaFacebookF />
+                <FaFacebookF className="text-lg sm:text-xl" />
               </a>
               <a
-                href="https"
-                className="py-2 px-4 bg-gray-700/50 rounded-lg hover:bg-brand-blue transition-colors"
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 sm:p-4 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-[#1da1f2] transition-all duration-300 transform hover:scale-110"
+                aria-label="Twitter"
               >
-                <FaTwitter />
+                <FaTwitter className="text-lg sm:text-xl" />
               </a>
               <a
-                href="https"
-                className="py-2 px-4 bg-gray-700/50 rounded-lg hover:bg-brand-blue transition-colors"
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 sm:p-4 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-[#e4405f] transition-all duration-300 transform hover:scale-110"
+                aria-label="Instagram"
               >
-                <FaInstagram />
+                <FaInstagram className="text-lg sm:text-xl" />
               </a>
               <a
-                href="https"
-                className="py-2 px-4 bg-gray-700/50 rounded-lg hover:bg-brand-blue transition-colors"
+                href="https://telegram.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 sm:p-4 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-[#0088cc] transition-all duration-300 transform hover:scale-110"
+                aria-label="Telegram"
               >
-                <FaTelegramPlane />
+                <FaTelegramPlane className="text-lg sm:text-xl" />
               </a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 6. Pastki kontakt paneli */}
-      <div className="container mx-auto px-6 pt-16 mt-8">
-        <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-300">
-          <div className="flex items-center mb-4 md:mb-0">
-            <FiPhone className="mr-2" />
-            <a href="tel:+14698330078" className="hover:text-white">
-              +1 469 833 0078
-            </a>
-          </div>
-          <div className="flex items-center mb-4 md:mb-0">
-            <FiMail className="mr-2" />
-            <a
-              href="mailto:erkinbay@erixconsulting.com"
-              className="hover:text-white"
-            >
+      {/* Contact Information Bar */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pb-8 md:pb-12">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-sm sm:text-base text-gray-300">
+          <a
+            href="tel:+14698330078"
+            className="flex items-center hover:text-white transition-colors"
+          >
+            <FiPhone className="mr-2 flex-shrink-0" />
+            <span>+1 469 833 0078</span>
+          </a>
+          <a
+            href="mailto:erkinbay@erixconsulting.com"
+            className="flex items-center hover:text-white transition-colors"
+          >
+            <FiMail className="mr-2 flex-shrink-0" />
+            <span className="break-all sm:break-normal">
               erkinbay@erixconsulting.com
-            </a>
-          </div>
+            </span>
+          </a>
           <div className="flex items-center">
-            <FiClock className="mr-2" />
+            <FiClock className="mr-2 flex-shrink-0" />
             <span>Mon - Fri : 09 AM - 09 PM</span>
           </div>
         </div>
