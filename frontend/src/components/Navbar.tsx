@@ -29,7 +29,7 @@ const Navbar: React.FC<Partial<AuthProps>> = ({
     }`;
 
   return (
-    <nav className="bg-[#103162] p-6">
+    <nav className="bg-[#103162] p-6 sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <a href="/">
